@@ -1,0 +1,70 @@
+*{
+    box-sizing: border-box;
+  }
+  
+  body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /*height: 100vh;*/
+      /*margin: 0;*/
+      background-color: #151357;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .container {
+      text-align: center;
+      color: aliceblue;
+      margin: 250px auto;
+      text-align: center;
+    }
+    
+    form {
+      display: flex;
+      flex-direction: column;
+      max-width: 300px;
+      height: 200px auto;
+      margin: auto;
+      text-align: center;
+    }
+    
+    label {
+      margin-bottom: 5px;
+    }
+    
+    input {
+      display: block;
+      margin: 10px auto;
+      padding: 7px;
+      width: 250px;
+      height: 35px;
+      border-radius: 10px;
+      background-color: transparent;
+      border-color: white;
+      color: white;
+  }
+    .input-icon1 {
+    background-image: url('https://raw.githubusercontent.com/MarianaLuisa/Banco-CDCT/3d8d5a2914fd4d53791a4000ba1bf1a808b915b8/user.svg');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px) center;
+    padding-right: 30px; /* espaço para o ícone */
+    background-size: 20px 20px;
+    
+  }
+  
+  .input-icon2 {
+    background-image: url('https://raw.githubusercontent.com/MarianaLuisa/Banco-CDCT/fa0916de5464794167b17f2088cdb0225a6df144/lock.svg');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px) center;
+    padding-right: 30px; /* espaço para o ícone */
+    background-size: 20px 20px;
+    
+  }
+  
+    button {
+      padding: 10px;
+      cursor: pointer;
+    }
+    

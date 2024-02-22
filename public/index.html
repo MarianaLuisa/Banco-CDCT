@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Login Banco de Dados</title>
+
+</head>
+
+<body>
+  <div class="container">
+    
+    <img src="https://github.com/MarianaLuisa/Banco-CDCT/blob/main/icons8-biology-64.png?raw=true" style="width: 100px; height: auto; display: block; margin: 15px auto;">
+    <form id="loginForm">
+
+      <input type="text" placeholder="Usuário" class="input-icon1" id="usuario">
+
+      <input type="password" placeholder="Senha" class="input-icon2" id="senha">
+
+      <!--Outra forma de mandar mensagem de usuário e senha incorretos-->
+      <!--<div id="mensagemErro"></div>-->
+
+      <!--<input type="submit" onclick = "login(); return false">-->
+      <input type="button" name="botao" value="Login" onclick = "login(); return false" style="background-color: white; color: black;">
+    </form>
+    
+
+    <div id="response"></div>
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://raw.githubusercontent.com/MarianaLuisa/Banco-CDCT/f2ded95230dc83d13893dd4692d2a1a75a6588da/database.svg" type="image/png">
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" /> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+    <link href="https://unpkg.com/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <title>Resultados</title>
+    
+    <style>
+
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+      
+        h2{
+          margin-top: 40px;
+          text-align: center;
+        }
+
+        th{
+          color: #ddd;
+        }
+
+        .resultados-table {
+            width: 90%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            margin-left: 5%;
+            margin-bottom: 200px;
+
+        }
+        
+        .resultados-table th, .resultados-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        
+        .resultados-table th {
+            background-color: #151357;
+        }
+
+        .navbar{
+          background-color: #151357;
+        }
+
+        .navbar-brand{
+          color: #ddd;
+        }
+
+        .navbar-brand:hover{
+          color: #ddd;
+        }
+
+        .nav-link{
+          color:#ddd;
+        }
+
+        .nav-link:hover{
+          color: #ddd;
+          background-color: #0056b3;
+          border-radius: 10px;
+      }
+
+        .toggle-btn {
+        background-color: transparent;
+        cursor: pointer;
+        border: 0;
+        padding: 1rem 1.5rem;
+      }
+
+        .toggle-btn i {
+            font-size: 1.5rem;
+            color: #FFF;
+        }
+
+        .back-to-top {
+          display: none;
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background-color: #151357;
+          color: #fff;
+          font-size: 32px; /* Tamanho da seta aumentado */
+          text-align: center;
+          line-height: 50px; /* Centraliza verticalmente */
+          cursor: pointer;
+          z-index: 1000;
+          transition: opacity 0.3s ease-in-out; /* Transição de opacidade */
+        }
+
+        .back-to-top i {
+          transform: translateY(2px);
+        }
+
+        .back-to-top:hover {
+          background-color: #0056b3;
+        }
+
+         /* Estilos para os filtros */
+  #filters {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #filters label, #filters select, #filters button {
+    margin-right: 10px;
+  }
+
+  #filters select {
+    padding: 5px;
+  }
+
+  .filtro-button{
+    padding: 5px 10px;
+    background-color: #151357;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 15px;
+
+  }
+
+.limpar-button {
+  padding: 5px 10px;
+    background-color: #151357;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+  #filters button:hover {
+    background-color: #0056b3;
+  }
+
+
+        /* Estilos para o container da mensagem de nenhum resultado correspondente */
+    .no-results-container {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .no-results-message {
+        background-color: #f8d7da; /* Cor de fundo */
+        color: #721c24; /* Cor do texto */
+        padding: 10px 20px; /* Espaçamento interno */
+        border-radius: 5px; /* Borda arredondada */
+        display: inline-block; /* Para que o container se ajuste ao conteúdo */
+    }
+        
+    </style>
+</head>
+<body>
+
+ 
+
+    
+   <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <button class="toggle-btn" type="button">
+        <i class="lni lni-database"></i>
+      </button>
+      <a class="navbar-brand" >Banco CDCT</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="./home.html" style="color:#ddd" >Search</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./dash.html" style="color:#ddd">Dashboards</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://sites.google.com/view/vig-genomica/p%C3%A1gina-inicial" style="color:#ddd" >Site Vigilância Genômica</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Settings</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav> 
+
+
+  <div id="filters">
+    <label for="ano">Ano:</label>
+    <select id="ano">
+      <option value="">Todos</option>
+      <option value="2015">2015</option>
+      <option value="2016">2016</option>
+      <option value="2017">2017</option>
+      <option value="2018">2018</option>
+      <option value="2019">2019</option>
+      <option value="2020">2020</option>
+      <option value="2021">2021</option>
+      <option value="2022">2022</option>
+      <option value="2023">2023</option>
+      <option value="2024">2024</option>
+
+    </select>
+    <label for="patogeno">Patógeno:</label>
+    <select id="patogeno">
+        <option value="">Todos</option>
+        <option value="tb">TB</option>
+        <option value="rabv">RABV</option>
+        <option value="ncov">NCOV</option>
+        <option value="mpox">MPOX</option>
+        <option value="flu">FLU</option>
+        <option value="denv1">DENV1</option>
+        <option value="denv2">DENV2</option>
+        <option value="chikv">CHIKV</option>
+        <option value="coi">COI</option>
+        <option value="yf">YF</option>
+        <option value="zika">ZIKA</option>
+        
+    </select>
+    <!-- Adicione mais filtros conforme necessário -->
+
+
+    <label for="cod">cod:</label>
+    <input type="text" id="cod" placeholder="Digite o código:">
+
+    <button onclick="aplicarFiltro()" class="filtro-button">Aplicar Filtro</button>
+    <button onclick="limparFiltros()" class="limpar-button">Limpar Filtros</button>
+</div>
+
+    <h2>Resultados da Pesquisa</h2>
+    <div id="tabela-container"></div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+
+<div id="preloader"></div>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+
+
+<!-- Adicione este código antes do fechamento da tag body -->
+<script>
+  // Função para mostrar ou esconder o botão de volta ao topo dependendo da posição da página
+  window.addEventListener('scroll', function() {
+    var backToTopButton = document.querySelector('.back-to-top');
+    if (window.scrollY > 100) {
+      backToTopButton.style.display = 'block'; // Mostra o botão quando a página é rolada para baixo
+    } else {
+      backToTopButton.style.display = 'none'; // Oculta o botão quando a página está no topo
+    }
+  });
+</script>
+
+</body>
+</html>
+
+
+
+    <script> 
+
+
+// Função para gerar a tabela
+function gerarTabela(data) {
+    // Selecione o contêiner da tabela
+    const tabelaContainer = document.getElementById('tabela-container');
+
+    // Crie a tabela
+    const tabela = document.createElement('table');
+    tabela.classList.add('resultados-table');
+
+    // Crie o cabeçalho da tabela
+    const cabecalho = document.createElement('thead');
+    const cabecalhoRow = document.createElement('tr');
+
+    // Use as chaves do primeiro objeto para criar as colunas do cabeçalho
+    if (data.length > 0) {
+        Object.keys(data[0]).forEach(coluna => {
+            const th = document.createElement('th');
+            th.textContent = coluna;
+            cabecalhoRow.appendChild(th);
+        });
+    } else {
+        console.error('O array de dados está vazio.');
+    }
+
+    cabecalho.appendChild(cabecalhoRow);
+    tabela.appendChild(cabecalho);
+
+    // Crie o corpo da tabela
+    const corpo = document.createElement('tbody');
+
+    // Preencha a tabela com os dados
+    data.forEach(obj => {
+        const linha = document.createElement('tr');
+
+        // Use os valores dos objetos para preencher as células da linha
+        Object.values(obj).forEach(valor => {
+            const celula = document.createElement('td');
+
+            // Se o valor for um caminho de arquivo, adicione um link de download
+            if (typeof valor === 'string' && valor.startsWith('/mnt/HD/cdctserver/banco/reads/')) {
+                const nomeArquivo = valor.split('/').pop(); // Obtém o nome do arquivo a partir do caminho
+                celula.innerHTML = `<a href="${valor}" download>${nomeArquivo}</a>`;
+            } else {
+                celula.textContent = valor;
+            }
+
+            linha.appendChild(celula);
+        });
+
+        corpo.appendChild(linha);
+    });
+
+    tabela.appendChild(corpo);
+
+    // Limpe o conteúdo anterior antes de adicionar a tabela
+    tabelaContainer.innerHTML = "";
+
+    // Adicione a tabela ao contêiner
+    tabelaContainer.appendChild(tabela);
+
+    // Inicialize a DataTable
+    $(document).ready(function() {
+        $('.resultados-table').DataTable({
+            dom: 'Bfrtip', // Adiciona os botões de exportação de dados
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print' // Especifica os botões de exportação disponíveis
+            ],
+            initComplete: function () { // Função chamada após a inicialização completa da DataTable
+                // Adiciona os filtros abaixo do cabeçalho da tabela
+                this.api().columns().every(function () {
+                    var column = this;
+                    var filter = $('<br><input type="text" placeholder="Filtrar..."/>')
+                        .appendTo($('#filters'))
+                        .on('keyup', function () {
+                            column.search($(this).val()).draw();
+                        });
+                });
+            }
+        });
+    });
+}
+
+// Função para aplicar filtros
+function aplicarFiltro() {
+    const ano = document.getElementById('ano').value;
+    const patogeno = document.getElementById('patogeno').value;
+    const cod = document.getElementById('cod').value.trim();
+
+    // Obtenha outros valores de filtro conforme necessário
+
+    // Fazer uma requisição AJAX para obter os resultados filtrados
+    fetch('/pesquisa', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ano, patogeno, cod }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        const tabelaContainer = document.getElementById('tabela-container');
+        if (data.length === 0) {
+            // Se não houver resultados, exibir a mensagem de nenhum resultado correspondente
+            tabelaContainer.innerHTML = `
+                <div class="no-results-container">
+                    <p class="no-results-message">Nenhum resultado correspondente.</p>
+                </div>
+            `;
+        } else {
+            // Se houver resultados, gerar a tabela normalmente
+            gerarTabela(data);
+        }
+    })
+    .catch(error => console.error('Erro ao obter dados:', error));
+}
+
+// Limpar os campos quando a página for carregada ou restaurada do cache
+window.addEventListener('pageshow', function(event) {
+  var historyTraversal = event.persisted || (typeof window.performance != 'undefined' && window.performance.navigation.type === 3);
+    // A página está sendo carregada do cache, então limpe os campos
+    document.getElementById('ano').value = '';
+    document.getElementById('patogeno').value = '';
+    document.getElementById('cod').value = '';
+});
+
+function limparFiltros() {
+  document.getElementById('ano').value = '';
+  document.getElementById('patogeno').value = '';
+  document.getElementById('cod').value = '';
+}
+
+    document.addEventListener('DOMContentLoaded', function () {
+     
+const urlParams = new URLSearchParams(window.location.search);
+const ano = urlParams.get('ano');
+const patogeno = urlParams.get('patogeno');
+const tabela = urlParams.get('tabela');
+const cod = urlParams.get('cod');
+
+
+// Se houver parâmetros de pesquisa, faça a requisição AJAX
+if (ano || patogeno || tabela || cod) {
+    const pesquisaData = {};
+
+    if (ano) pesquisaData.ano = ano;
+    if (patogeno) pesquisaData.patogeno = patogeno;
+    if (tabela) pesquisaData.tabela = tabela;
+    if (cod) pesquisaData.cod = cod;
+
+
+    // Fazer uma requisição AJAX para obter os resultados
+    fetch('/pesquisa', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(pesquisaData),
+    })
+    .then(response => response.json())
+    .then(data => {
+        const tabelaContainer = document.getElementById('tabela-container');
+        if (data.length === 0) {
+            // Se não houver resultados, exibir a mensagem de nenhum resultado correspondente
+            tabelaContainer.innerHTML = `
+                <div class="no-results-container">
+                    <p class="no-results-message">Nenhum resultado correspondente.</p>
+                </div>
+            `;
+        } else {
+            // Se houver resultados, gerar a tabela normalmente
+            gerarTabela(data);
+        }
+
+    })}});
+    
+    </script>
