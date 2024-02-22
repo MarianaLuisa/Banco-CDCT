@@ -4,4 +4,5 @@ Banco de dados da Vigilância Genômica do Centro de Desenvolvimento Científico
 O banco foi criado para ser um modo único e fácil de acesso e consulta de informações das amostras de patógenos sequenciados pelo CDCT.
 
 Desenvolvedoras: Emilie Kim, Mariana Luísa e Tainá Selayaran
+
 Coordenador: Richard Salvato
