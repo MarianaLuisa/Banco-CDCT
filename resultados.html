@@ -3,12 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script> -->
+
     <link rel="icon" href="https://raw.githubusercontent.com/MarianaLuisa/Banco-CDCT/f2ded95230dc83d13893dd4692d2a1a75a6588da/database.svg" type="image/png">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" /> 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.3.4/css/select.dataTables.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/select/1.3.4/js/dataTables.select.min.js"></script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 
     <link href="https://unpkg.com/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
     <title>Resultados</title>
@@ -19,7 +40,7 @@
 
       
         h2{
-          margin-top: 40px;
+          margin-top: 100px;
           text-align: center;
         }
 
@@ -30,7 +51,7 @@
         .resultados-table {
             width: 90%;
             border-collapse: collapse;
-            margin-top: 30px;
+            margin-top: 80px;
             margin-left: 5%;
             margin-bottom: 200px;
 
@@ -48,6 +69,11 @@
 
         .navbar{
           background-color: #151357;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 1000;
+          width: 100%;
         }
 
         .navbar-brand{
@@ -106,46 +132,6 @@
           background-color: #0056b3;
         }
 
-         /* Estilos para os filtros */
-  #filters {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  #filters label, #filters select, #filters button {
-    margin-right: 10px;
-  }
-
-  #filters select {
-    padding: 5px;
-  }
-
-  .filtro-button{
-    padding: 5px 10px;
-    background-color: #151357;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 15px;
-
-  }
-
-.limpar-button {
-  padding: 5px 10px;
-    background-color: #151357;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-  #filters button:hover {
-    background-color: #0056b3;
-  }
 
 
         /* Estilos para o container da mensagem de nenhum resultado correspondente */
@@ -162,14 +148,129 @@
         display: inline-block; /* Para que o container se ajuste ao conteúdo */
     }
         
+    .dataTables_wrapper {
+        margin-top: 20px;
+        margin-left: 20px;
+        /* margin-right: 30px; */
+    }
+
+    /* Estilo para os botões de exportação do DataTables */
+.dataTables_wrapper .dt-buttons {
+    margin-bottom: 20px; /* Espaçamento inferior para separar os botões */
+}
+
+.dataTables_wrapper .dt-buttons button {
+    background-color: #151357; /* Cor de fundo dos botões */
+    color: #fff; /* Cor do texto dos botões */
+    border: none; /* Remover a borda dos botões */
+    border-radius: 5px; /* Borda arredondada */
+    padding: 8px 12px; /* Espaçamento interno dos botões */
+    margin-left: 10px;  
+    cursor: pointer; /* Altera o cursor ao passar sobre os botões */
+}
+
+.dataTables_wrapper .dt-buttons button:hover {
+    background-color: #0056b3; /* Cor de fundo dos botões ao passar o mouse */
+}
+
+/* Estilizando as caixas de seleção */
+.checkbox-custom {
+    margin-right: 5px;
+}
+
+/* Estilizando o controle de exibição de linhas por página */
+.dataTables_length {
+    margin-right: 20px;
+}
+
+.dataTables_length label {
+    font-weight: normal;
+    margin-right: 10px;
+}
+
+.dataTables_length select {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Estilos para as páginas da DataTable */
+.dataTables_paginate {
+    margin-top: 20px; /* Espaçamento superior */
+}
+
+/* Estilos para os botões de paginação (previous e next) */
+.dataTables_paginate .paginate_button {
+    padding: 5px 10px; /* Espaçamento interno */
+    margin: 0 5px; /* Espaçamento entre os botões */
+    background-color: lightgray; /* Cor de fundo padrão dos botões */
+    color: #fff; /* Cor do texto padrão dos botões */
+    border-radius: 10px; /* Borda arredondada */
+    cursor: pointer; /* Altera o cursor ao passar sobre os botões */
+}
+
+.paginate_button.current:hover,
+.paginate_button.current:focus {
+    background-color: #0056b3; /* Cor de fundo dos botões ao passar o mouse ou ao focar */
+}
+
+/* .dataTables_paginate .paginate_button.current {
+    background-color: #0056b3; 
+    color: #fff; 
+} */
+
+
+.dataTables_paginate {
+    margin-top: 20px; /* Espaçamento superior */
+    margin-bottom: 60px; /* Espaçamento inferior */
+}
+
+
+
+/* Estilos para a tabela */
+.resultados-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            margin-left: 5%;
+            margin-bottom: 200px;
+
+        }
+        
+        .resultados-table th, .resultados-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        
+        .resultados-table th {
+            background-color: #151357;
+            color: #ddd;
+            position: relative;
+        }
+
+        .resultados-table th input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        /* Estilos para os botões */
+        .btn-filter {
+            margin-left: 10px;
+        }
+
+         /* Estilo para o input de pesquisa */
+         .dataTables_filter input[type="search"] {
+            margin-right: 30px; /* Adiciona uma margem à direita */
+        }
+
     </style>
 </head>
 <body>
 
  
 
-    
-   <nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <button class="toggle-btn" type="button">
         <i class="lni lni-database"></i>
@@ -197,49 +298,6 @@
     </div>
   </nav> 
 
-
-  <div id="filters">
-    <label for="ano">Ano:</label>
-    <select id="ano">
-      <option value="">Todos</option>
-      <option value="2015">2015</option>
-      <option value="2016">2016</option>
-      <option value="2017">2017</option>
-      <option value="2018">2018</option>
-      <option value="2019">2019</option>
-      <option value="2020">2020</option>
-      <option value="2021">2021</option>
-      <option value="2022">2022</option>
-      <option value="2023">2023</option>
-      <option value="2024">2024</option>
-
-    </select>
-    <label for="patogeno">Patógeno:</label>
-    <select id="patogeno">
-        <option value="">Todos</option>
-        <option value="tb">TB</option>
-        <option value="rabv">RABV</option>
-        <option value="ncov">NCOV</option>
-        <option value="mpox">MPOX</option>
-        <option value="flu">FLU</option>
-        <option value="denv1">DENV1</option>
-        <option value="denv2">DENV2</option>
-        <option value="chikv">CHIKV</option>
-        <option value="coi">COI</option>
-        <option value="yf">YF</option>
-        <option value="zika">ZIKA</option>
-        
-    </select>
-    <!-- Adicione mais filtros conforme necessário -->
-
-
-    <label for="cod">cod:</label>
-    <input type="text" id="cod" placeholder="Digite o código:">
-
-    <button onclick="aplicarFiltro()" class="filtro-button">Aplicar Filtro</button>
-    <button onclick="limparFiltros()" class="limpar-button">Limpar Filtros</button>
-</div>
-
     <h2>Resultados da Pesquisa</h2>
     <div id="tabela-container"></div>
 
@@ -249,30 +307,51 @@
     crossorigin="anonymous"></script>
     <script src="script.js"></script>
 
-<div id="preloader"></div>
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <div id="preloader"></div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-down-short"></i></a>
+ 
 
-
-
-<!-- Adicione este código antes do fechamento da tag body -->
-<script>
-  // Função para mostrar ou esconder o botão de volta ao topo dependendo da posição da página
-  window.addEventListener('scroll', function() {
-    var backToTopButton = document.querySelector('.back-to-top');
-    if (window.scrollY > 100) {
-      backToTopButton.style.display = 'block'; // Mostra o botão quando a página é rolada para baixo
-    } else {
-      backToTopButton.style.display = 'none'; // Oculta o botão quando a página está no topo
-    }
-  });
-</script>
+    <script>
+      // Função para mostrar ou esconder o botão de volta ao topo dependendo da posição da página
+      window.addEventListener('scroll', function() {
+        var backToTopButton = document.querySelector('.back-to-top');
+        if (window.scrollY > 100) {
+          backToTopButton.style.display = 'block'; // Mostra o botão quando a página é rolada para baixo
+          backToTopButton.classList.remove('scroll-top'); // Remove a classe 'scroll-top' quando não estiver no topo
+        } else {
+          backToTopButton.style.display = 'none'; // Oculta o botão quando a página está no topo
+          backToTopButton.classList.add('scroll-top'); // Adiciona a classe 'scroll-top' quando estiver no topo
+        }
+      });
+    
+      // Adiciona um evento de clique ao botão
+      document.querySelector('.back-to-top').addEventListener('click', function(e) {
+        e.preventDefault(); // Evita o comportamento padrão do link
+        if (this.classList.contains('scroll-top')) { // Verifica se está no topo da página
+          var scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight); // Altura total da página
+          window.scrollTo({
+            top: scrollHeight,
+            behavior: 'smooth' // Rola suavemente para o final da página
+          });
+          this.innerHTML = '<i class="bi bi-arrow-up-short"></i>'; // Altera o ícone para apontar para cima
+          this.classList.remove('scroll-top'); // Remove a classe 'scroll-top'
+        } else {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Rola suavemente para o topo da página
+          });
+          this.innerHTML = '<i class="bi bi-arrow-down-short"></i>'; // Altera o ícone para apontar para baixo
+          this.classList.add('scroll-top'); // Adiciona a classe 'scroll-top'
+        }
+      });
+    </script>
 
 </body>
 </html>
 
-
-
     <script> 
+
+
 
 
 // Função para gerar a tabela
@@ -287,6 +366,10 @@ function gerarTabela(data) {
     // Crie o cabeçalho da tabela
     const cabecalho = document.createElement('thead');
     const cabecalhoRow = document.createElement('tr');
+
+    // Adicione uma célula vazia para a coluna extra à esquerda
+    const colunaExtraCabecalho = document.createElement('th');
+    cabecalhoRow.appendChild(colunaExtraCabecalho);
 
     // Use as chaves do primeiro objeto para criar as colunas do cabeçalho
     if (data.length > 0) {
@@ -309,17 +392,31 @@ function gerarTabela(data) {
     data.forEach(obj => {
         const linha = document.createElement('tr');
 
+
+           // Adicione uma célula para a coluna extra à esquerda
+           const colunaExtra = document.createElement('td');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.classList.add('row-checkbox');
+        colunaExtra.appendChild(checkbox);
+        linha.appendChild(colunaExtra);
+
+
+
         // Use os valores dos objetos para preencher as células da linha
         Object.values(obj).forEach(valor => {
             const celula = document.createElement('td');
 
-            // Se o valor for um caminho de arquivo, adicione um link de download
-            if (typeof valor === 'string' && valor.startsWith('/mnt/HD/cdctserver/banco/reads/')) {
-                const nomeArquivo = valor.split('/').pop(); // Obtém o nome do arquivo a partir do caminho
-                celula.innerHTML = `<a href="${valor}" download>${nomeArquivo}</a>`;
-            } else {
-                celula.textContent = valor;
-            }
+          
+    if (typeof valor === 'string' && valor.startsWith('/mnt/HD/cdctserver/banco/reads/')) {
+    const nomeArquivo = valor.split('/').pop(); // Obtém o nome do arquivo a partir do caminho
+    const caminhoSemPrefixo = valor.replace('/mnt/HD/cdctserver/banco/reads/', ''); // Remove o prefixo do caminho
+    const urlAbsoluta = `http://10.44.14.232/reads/${caminhoSemPrefixo}`; // Substitua <IP_DO_SERVIDOR_APACHE> pelo endereço IP do servidor Apache
+    celula.innerHTML = `<a href="${urlAbsoluta}" download>${nomeArquivo}</a>`;
+} else {
+    celula.textContent = valor;
+}
+
 
             linha.appendChild(celula);
         });
@@ -335,119 +432,214 @@ function gerarTabela(data) {
     // Adicione a tabela ao contêiner
     tabelaContainer.appendChild(tabela);
 
-    // Inicialize a DataTable
-    $(document).ready(function() {
-        $('.resultados-table').DataTable({
-            dom: 'Bfrtip', // Adiciona os botões de exportação de dados
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print' // Especifica os botões de exportação disponíveis
-            ],
-            initComplete: function () { // Função chamada após a inicialização completa da DataTable
-                // Adiciona os filtros abaixo do cabeçalho da tabela
-                this.api().columns().every(function () {
-                    var column = this;
-                    var filter = $('<br><input type="text" placeholder="Filtrar..."/>')
-                        .appendTo($('#filters'))
-                        .on('keyup', function () {
-                            column.search($(this).val()).draw();
-                        });
+    $(document).ready(function () {
+
+
+        $('.row-checkbox').each(function () {
+            $(this).on('click', function () {
+                $(this).parent().parent().toggleClass('selected');
+            });
+        });
+
+
+var tabela = $('.resultados-table').DataTable({
+                dom: 'lBfrtip',
+                buttons: [ {
+                    extend: 'collection',
+                    text: 'Download',
+                    buttons: ['csv', 'excel', 'pdf', 'copy', 'print']
+                }],
+                pageLength: 100,
+                select: {
+                    style: 'multi',
+                    selector: 'td:first-child'
+                },
+                lengthMenu: [[10, 25, 50, 100, -1], ['10', '25', '50', '100', 'All']],
+                initComplete: function () {
+                    var api = this.api();
+
+
+// Adiciona o botão de download personalizado
+$('<button>Download Arquivos Selecionados</button>').addClass('download-button').insertAfter('.buttons-collection');
+
+// Função para lidar com o download ao clicar no botão de download personalizado
+$('.download-button').on('click', async function () {
+    const selectedRows = $('.resultados-table tr:has(:checkbox:checked)'); // Seleciona as linhas com checkbox marcado
+    const selectedLinks = [];
+
+    // Coleta os links dos arquivos selecionados
+    selectedRows.each(function () {
+        const link1 = $(this).find('a:eq(0)').attr('href');
+        const link2 = $(this).find('a:eq(1)').attr('href');
+
+        if (link1 && link2) {
+            selectedLinks.push(link1);
+            selectedLinks.push(link2);
+        }
+    });
+
+    console.log('Links selecionados:', selectedLinks); // Verifica os links selecionados
+
+    // Cria um link temporário para cada arquivo selecionado e inicia o download de todos sequencialmente
+    for (const link of selectedLinks) {
+        const tempLink = document.createElement('a');
+        tempLink.href = link;
+        tempLink.setAttribute('download', ''); // Para forçar o download
+        tempLink.style.display = 'none';
+        document.body.appendChild(tempLink);
+        tempLink.click(); // Dispara o clique no link
+        document.body.removeChild(tempLink); // Remove o link temporário da página após o download
+
+        // Aguarda um curto período de tempo antes de iniciar o próximo download
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Espera 1 segundo entre os downloads
+    }
+});
+
+
+
+/*
+
+// Adiciona o botão de download personalizado
+$('<button>Download Arquivos Selecionados</button>').addClass('download-button').insertAfter('.buttons-collection');
+
+// Função para lidar com o download ao clicar no botão de download personalizado
+$('.download-button').on('click', function () {
+    const selectedRows = $('.resultados-table tr:has(:checkbox:checked)'); // Seleciona as linhas com checkbox marcado
+    const selectedLinks = [];
+
+    // Coleta os links dos arquivos selecionados
+    selectedRows.each(function () {
+        const link1 = $(this).find('a:eq(0)').attr('href');
+        const link2 = $(this).find('a:eq(1)').attr('href');
+
+        if (link1 && link2) {
+            selectedLinks.push(link1);
+            selectedLinks.push(link2);
+        }
+    });
+
+    console.log('Links selecionados:', selectedLinks); // Verifica os links selecionados
+
+    // Cria uma instância de JSZip
+    const zip = new JSZip();
+
+    // Gera o arquivo zip com os arquivos selecionados
+    selectedLinks.forEach(link => {
+        const fileName = link.split('/').pop();
+        const filePath = `/mnt/HD/cdctserver/banco/reads/${fileName}`;
+
+        // Adiciona o arquivo ao zip
+        fetch(filePath)
+            .then(response => response.blob())
+            .then(blob => zip.file(fileName, blob))
+            .catch(error => console.error('Erro ao adicionar arquivo ao zip:', error));
+    });
+
+    // Gera o arquivo zip e inicia o download
+    zip.generateAsync({ type: 'blob' })
+        .then(blob => {
+            // Cria um URL para o blob
+            const url = window.URL.createObjectURL(blob);
+
+            // Cria um link temporário e inicia o download do arquivo zip
+            const tempLink = document.createElement('a');
+            tempLink.href = url;
+            tempLink.setAttribute('download', 'arquivos_selecionados.zip');
+            tempLink.style.display = 'none';
+            document.body.appendChild(tempLink);
+            tempLink.click();
+            document.body.removeChild(tempLink);
+        })
+        .catch(error => console.error('Erro ao gerar o arquivo zip:', error));
+});
+*/
+
+
+  
+    // Adiciona os filtros no cabeçalho, ignorando a primeira coluna
+    this.api().columns().every(function (index) {
+        if(index !== 0){ // Ignorar a primeira coluna
+            var column = this;
+            var header = $(column.header());
+            var input = $('<input type="text" placeholder="Filtrar..."/>')
+                .appendTo(header)
+                .on('keyup', function () {
+                    column.search($(this).val()).draw();
                 });
+        }
+    });
             }
         });
+
+// Atualiza o estado do checkbox da coluna extra à esquerda conforme as linhas são selecionadas ou desmarcadas
+tabela.on('select', function (e, dt, type, indexes) {
+    var selectedRow = tabela.rows(indexes).nodes().to$(); // Obtém a linha selecionada
+    selectedRow.find('.row-checkbox').prop('checked', true); // Marca o checkbox da linha selecionada
+}).on('deselect', function (e, dt, type, indexes) {
+    var deselectedRow = tabela.rows(indexes).nodes().to$(); // Obtém a linha desmarcada
+    deselectedRow.find('.row-checkbox').prop('checked', false); // Desmarca o checkbox da linha desmarcada
+});
+
+
+        // Adicionar caixas de seleção para selecionar todas e desmarcar todas
+    $('.dataTables_length').prepend('<label><input type="checkbox" id="selectAllCheckbox" class="checkbox-custom">Select All</label>');
+
+// Definir comportamento para a caixa de seleção de selecionar todas
+$('#selectAllCheckbox').on('change', function () {
+    if ($(this).is(':checked')) {
+        tabela.rows().select();
+    } else {
+        tabela.rows().deselect();
+    }
+});
+
     });
 }
 
-// Função para aplicar filtros
-function aplicarFiltro() {
-    const ano = document.getElementById('ano').value;
-    const patogeno = document.getElementById('patogeno').value;
-    const cod = document.getElementById('cod').value.trim();
 
-    // Obtenha outros valores de filtro conforme necessário
+document.addEventListener('DOMContentLoaded', function () {
 
-    // Fazer uma requisição AJAX para obter os resultados filtrados
-    fetch('/pesquisa', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ano, patogeno, cod }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        const tabelaContainer = document.getElementById('tabela-container');
-        if (data.length === 0) {
-            // Se não houver resultados, exibir a mensagem de nenhum resultado correspondente
-            tabelaContainer.innerHTML = `
-                <div class="no-results-container">
-                    <p class="no-results-message">Nenhum resultado correspondente.</p>
-                </div>
-            `;
-        } else {
-            // Se houver resultados, gerar a tabela normalmente
-            gerarTabela(data);
+        const urlParams = new URLSearchParams(window.location.search);
+        const ano = urlParams.get('ano');
+        const patogeno = urlParams.get('patogeno');
+        const tabela = urlParams.get('tabela');
+        const n_interno = urlParams.get('n_interno');
+
+        // Se houver parâmetros de pesquisa, faça a requisição AJAX
+        if (ano || patogeno || tabela || n_interno) {
+            const pesquisaData = {};
+
+            if (ano) pesquisaData.ano = ano;
+            if (patogeno) pesquisaData.patogeno = patogeno;
+            if (tabela) pesquisaData.tabela = tabela;
+            if (n_interno) pesquisaData.n_interno = n_interno;
+
+            // Fazer uma requisição AJAX para obter os resultados
+            fetch('/pesquisa', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(pesquisaData),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const tabelaContainer = document.getElementById('tabela-container');
+                    if (data.length === 0) {
+                        // Se não houver resultados, exibir a mensagem de nenhum resultado correspondente
+                        tabelaContainer.innerHTML = `
+                            <div class="no-results-container">
+                                <p class="no-results-message">Nenhum resultado correspondente.</p>
+                            </div>
+                        `;
+                    } else {
+                        // Se houver resultados, gerar a tabela normalmente
+                        gerarTabela(data);
+                    }
+
+                })
         }
-    })
-    .catch(error => console.error('Erro ao obter dados:', error));
-}
-
-// Limpar os campos quando a página for carregada ou restaurada do cache
-window.addEventListener('pageshow', function(event) {
-  var historyTraversal = event.persisted || (typeof window.performance != 'undefined' && window.performance.navigation.type === 3);
-    // A página está sendo carregada do cache, então limpe os campos
-    document.getElementById('ano').value = '';
-    document.getElementById('patogeno').value = '';
-    document.getElementById('cod').value = '';
-});
-
-function limparFiltros() {
-  document.getElementById('ano').value = '';
-  document.getElementById('patogeno').value = '';
-  document.getElementById('cod').value = '';
-}
-
-    document.addEventListener('DOMContentLoaded', function () {
-     
-const urlParams = new URLSearchParams(window.location.search);
-const ano = urlParams.get('ano');
-const patogeno = urlParams.get('patogeno');
-const tabela = urlParams.get('tabela');
-const cod = urlParams.get('cod');
+    });
 
 
-// Se houver parâmetros de pesquisa, faça a requisição AJAX
-if (ano || patogeno || tabela || cod) {
-    const pesquisaData = {};
-
-    if (ano) pesquisaData.ano = ano;
-    if (patogeno) pesquisaData.patogeno = patogeno;
-    if (tabela) pesquisaData.tabela = tabela;
-    if (cod) pesquisaData.cod = cod;
-
-
-    // Fazer uma requisição AJAX para obter os resultados
-    fetch('/pesquisa', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(pesquisaData),
-    })
-    .then(response => response.json())
-    .then(data => {
-        const tabelaContainer = document.getElementById('tabela-container');
-        if (data.length === 0) {
-            // Se não houver resultados, exibir a mensagem de nenhum resultado correspondente
-            tabelaContainer.innerHTML = `
-                <div class="no-results-container">
-                    <p class="no-results-message">Nenhum resultado correspondente.</p>
-                </div>
-            `;
-        } else {
-            // Se houver resultados, gerar a tabela normalmente
-            gerarTabela(data);
-        }
-
-    })}});
-    
     </script>

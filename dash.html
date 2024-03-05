@@ -233,65 +233,51 @@ a.sidebar-link:hover {
 </head>
 
 <body>
+  
   <div class="wrapper">
-      <aside id="sidebar">
-          <div class="d-flex">
-              <button class="toggle-btn" type="button">
-                <i class="lni lni-database"></i>
-              </button>
-              <div class="sidebar-logo">
-                  <a href="#">Banco CDCT</a>
-              </div>
-          </div>
-          <ul class="sidebar-nav">
-              <li class="sidebar-item">
-                  <a href="#" class="sidebar-link">
-                      <i class="lni lni-search"></i>
-                      <span onClick="home()">Search</span>
-                  </a>
-              </li>
-              <li class="sidebar-item">
-                  <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                      data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-                      <i class="lni lni-graph"></i>
-                      <span onClick="dash()">Dashboards</span>
-                  </a>
-                  <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                      <li class="sidebar-item">
-                          <a href="#" class="sidebar-link">TB</a>
-                      </li>
-                      <li class="sidebar-item">
-                          <a href="#" class="sidebar-link">Raiva</a>
-                      </li>
-                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">NCOV</a>
-                      </li>
-                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">MonkeyPox</a>
-                      </li>
-                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Influenza</a>
-                      </li>
-                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Dengue Tipo 1</a>
-                      </li>
-                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Dengue Tipo 2</a>
-                      </li>
-                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Chikungunya</a>
-                      </li>
-                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">COI</a>
-                      </li>
-                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Febre Amarela</a>
-                      </li>
-                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Zika</a>
-                      </li>
-                  </ul>
-              </li>
+    <aside id="sidebar">
+        <div class="d-flex">
+            <button class="toggle-btn" type="button">
+              <i class="lni lni-database"></i>
+            </button>
+            <div class="sidebar-logo">
+                <a href="#">Banco CDCT</a>
+            </div>
+        </div>
+        <ul class="sidebar-nav">
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                    <i class="lni lni-search"></i>
+                    <span onClick="home()">Search</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                    data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                    <i class="lni lni-graph"></i>
+                    <span onClick="dash()">Dashboards</span>
+                </a>
+                <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                  <li class="sidebar-item">
+                      <a href="./amostra.html" class="sidebar-link">Amostra</a>
+                  </li>
+                  <li class="sidebar-item">
+                      <a href="#" class="sidebar-link">Arboviroses</a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">Respiratórios</a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">MonkeyPox</a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">Tuberculose</a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">Raiva</a>
+                  </li>
+              </ul>
+            </li>
               
               <li class="sidebar-item">
                   <a href="#" class="sidebar-link">
@@ -324,27 +310,17 @@ a.sidebar-link:hover {
                 <!-- o form é para deixar os botoes pequenos no tamanho certo -->
                 <form id="buttons-content" action="#" method="get"> 
             
-                <button id="button-content1" onclick="" >Tuberculose</button>
+                <button id="button-content1" onclick="amostra()" >Amostra</button>
                 <p></p>
-                <button id="button-content" onclick="">Raiva</button>
+                <button id="button-content" onclick="arboviroses()">Arboviroses</button>
                 <p></p>
-                <button id="button-content" onclick="">NCOV</button>
+                <button id="button-content" onclick="">Respiratórios</button>
                 <p></p>
                 <button id="button-content" onclick="">MonkeyPox</button>
                 <p></p>
-                <button id="button-content" onclick="" >Influenza</button>
+                <button id="button-content" onclick="" >Tuberculose</button>
                 <p></p>
-                <button id="button-content" onclick="">Dengue Tipo 1</button>
-                <p></p>
-                <button id="button-content" onclick="">Dengue Tipo 2</button>
-                <p></p>
-                <button id="button-content" onclick="">Chikungunya</button>
-                <p></p>
-                <button id="button-content" onclick="">COI</button>
-                <p></p>
-                <button id="button-content" onclick="">Febre Amarela</button>
-                <p></p>
-                <button id="button-content13" onclick="">Zika</button>
+                <button id="button-content" onclick="">Raiva</button>
                 
               </form>
               </div>
@@ -382,6 +358,14 @@ a.sidebar-link:hover {
     function config(){
       location.href="config.html"
     }
+
+    function amostra(){
+      location.href="amostra.html"
+    }
+
+    function arboviroses(){
+    location.href="arboviroses.html"
+  }
 
     function abrirSiteExterno() {
     window.location.href = "https://sites.google.com/view/vig-genomica/p%C3%A1gina-inicial";

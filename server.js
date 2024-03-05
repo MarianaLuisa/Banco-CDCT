@@ -2,6 +2,8 @@ const express = require('express');
 const mysql = require('mysql');
 const path = require('path');
 
+
+
 const app = express();
 const port = 4000;
 
@@ -29,20 +31,6 @@ app.use(express.urlencoded({ extended: true }));
 // Configuração do Express para servir arquivos estáticos
 app.use(express.static('public'));
 
-// Rota para download de arquivo
-app.get('/download/:fastq_gz', (req, res) => {
-    const filename = req.params.fastq_gz;
-    const filePath = path.join(__dirname, '/mnt/HD/cdctserver/banco/reads/denv1_1033_2015_R1.fastq.gz', filename);
-
-    // Envie o arquivo como resposta
-    res.download(filePath, (err) => {
-        if (err) {
-            console.error('Erro ao baixar o arquivo:', err);
-            res.status(500).send('Erro ao baixar o arquivo');
-        }
-    });
-});
-
 // Rota para renderizar a página HTML
 app.get('/home', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/home.html'));
@@ -53,14 +41,16 @@ app.get('/resultados.html', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/resultados.html'));
 });
 
+
+
 // Rota para pesquisa
 app.post('/pesquisa', async (req, res) => {
 
     try {
 
-        const { ano, patogeno, tabela, cod } = req.body;
+        const { ano, patogeno, tabela, n_interno } = req.body;
 
-        console.log('Received parameters:', { ano, patogeno, tabela, cod});
+        console.log('Received parameters:', { ano, patogeno, tabela, n_interno});
 
         let result;
 
@@ -70,8 +60,8 @@ app.post('/pesquisa', async (req, res) => {
             result = await searchByPathogen(patogeno);
         } else if (ano && !tabela && !patogeno){
             result = await searchByYear(ano);
-        } else if (!ano && !tabela && !patogeno && cod){
-            result = await searchByCode(cod);
+        } else if (!ano && !tabela && !patogeno && n_interno){
+            result = await searchByCode(n_interno);
         } else if (tabela && patogeno && !ano){
             result=await searchByPathogenandTable(patogeno, tabela);
         } else if (tabela && !patogeno && ano){
@@ -87,7 +77,7 @@ app.post('/pesquisa', async (req, res) => {
         res.json(result);
         
     } catch (error) {
-        console.error('Erro na pesquisa:', error);
+        console.error('Banco de Dados temporariamente indisponível', error);
         res.status(500).json({ error: 'Erro interno do servidor', details: error.message });
     }
 });
@@ -123,10 +113,10 @@ async function searchByTable(tabela) {
 }
 
 // Consulta por código
-async function searchByCode(cod) {
+async function searchByCode(n_interno) {
     const connection = await connect();
-    const sql = 'SELECT * FROM amostra WHERE cod = ?';
-    const rows = await query(connection, sql, [cod]);
+    const sql = 'SELECT * FROM amostra WHERE n_interno = ?';
+    const rows = await query(connection, sql, [n_interno]);
     console.log('Consulta SQL:', sql); // Verificar a consulta SQL gerada
     connection.end();
     return rows;
@@ -167,6 +157,8 @@ async function searchByYearPathogenandTable(ano, patogeno, tabela) {
     connection.end();
     return rows;
 }
+
+
 
 // Inicia o servidor
 app.listen(port, () => {

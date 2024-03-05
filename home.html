@@ -194,73 +194,54 @@ a.sidebar-link:hover {
 
 </style>
 
-
-
-<!-- <link rel="icon" href="https://github.com/salvatolab/salvatolab.github.io/blob/main/assets/img/icon.jpeg?raw=true" type="image/x-icon"> -->
 </head>
 
 <body>
+  
   <div class="wrapper">
-      <aside id="sidebar">
-          <div class="d-flex">
-              <button class="toggle-btn" type="button">
-                <i class="lni lni-database"></i>
-              </button>
-              <div class="sidebar-logo">
-                  <a href="#">Banco CDCT</a>
-                  
-              </div>
-          </div>
-          <ul class="sidebar-nav">
-              <li class="sidebar-item">
-                  <a href="#" class="sidebar-link">
-                    <!-- icone da lupa -->
+    <aside id="sidebar">
+        <div class="d-flex">
+            <button class="toggle-btn" type="button">
+              <i class="lni lni-database"></i>
+            </button>
+            <div class="sidebar-logo">
+                <a href="#">Banco CDCT</a>
+            </div>
+        </div>
+        <ul class="sidebar-nav">
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
                     <i class="lni lni-search"></i>
-                      <span onClick="home()">Search</span>
-                  </a>
-              </li>
-              <li class="sidebar-item">
-                  <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                      data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-                      <i class="lni lni-graph"></i>
-                      <span onClick="dash()">Dashboards</span>
-                  </a>
-                  <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                      <li class="sidebar-item">
-                          <a href="#" class="sidebar-link">TB</a>
-                      </li>
-                      <li class="sidebar-item">
-                          <a href="#" class="sidebar-link">Raiva</a>
-                      </li>
-                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">NCOV</a>
-                      </li>
-                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">MonkeyPox</a>
-                      </li>
-                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Influenza</a>
-                      </li>
-                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Dengue Tipo 1</a>
-                      </li>
-                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Dengue Tipo 2</a>
-                      </li>
-                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Chikungunya</a>
-                      </li>
-                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">COI</a>
-                      </li>
-                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Febre Amarela</a>
-                      </li>
-                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Zika</a>
-                      </li>
-                  </ul>
-              </li>
+                    <span onClick="home()">Search</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                    data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                    <i class="lni lni-graph"></i>
+                    <span onClick="dash()">Dashboards</span>
+                </a>
+                <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                  <li class="sidebar-item">
+                      <a href="#" class="sidebar-link">Amostra</a>
+                  </li>
+                  <li class="sidebar-item">
+                      <a href="#" class="sidebar-link">Arboviroses</a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">Respiratórios</a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">MonkeyPox</a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">Tuberculose</a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">Raiva</a>
+                  </li>
+              </ul>
+            </li>
               
               <li class="sidebar-item">
                   <a href="#" class="sidebar-link">
@@ -325,11 +306,22 @@ a.sidebar-link:hover {
                   <!-- Adicione mais opções de patógenos conforme necessário -->
                 </select>
                 
-                <label for="tabela">Tabela:</label>
-                <input type="text" id="tabela" name="tabela">
                 
-                <label for="cod">Código:</label>
-                <input type="text" id="cod" name="cod">
+              </select>
+                
+              <label for="tabela">Tabela:</label>
+              <select id="tabela" name="tabela" required>
+                <option value="amostra">Amostra</option>
+                <option value="arboviroses">Arboviroses</option>
+                <option value="respiratorios">Respiratorios</option>
+                <option value="mpox">MPOX</option>
+                <option value="tb">Tuberculose</option>
+                <option value="raiva">Raiva</option>
+               
+              </select>
+                
+                <label for="n_interno">Número Interno</label>
+                <input type="text" id="n_interno" name="n_interno">
                 
                 <button type="button" onclick=" redirecionarResultados()">Pesquisar</button>
                 
@@ -359,11 +351,11 @@ function redirecionarResultados() {
       const ano = document.getElementById('ano').value;
       const patogeno = document.getElementById('patogeno').value;
       const tabela = document.getElementById('tabela').value;
-      const cod = document.getElementById('cod').value;
+      const n_interno = document.getElementById('n_interno').value;
 
 
       // Redireciona para a página de resultados.html com os parâmetros da pesquisa
-      window.location.href = `/resultados.html?ano=${ano}&patogeno=${patogeno}&tabela=${tabela}&cod=${cod}`;
+      window.location.href = `/resultados.html?ano=${ano}&patogeno=${patogeno}&tabela=${tabela}&n_interno=${n_interno}`;
     }
 
     // Limpar os campos quando a página for carregada ou restaurada do cache
@@ -373,7 +365,7 @@ window.addEventListener('pageshow', function(event) {
     document.getElementById('ano').value = '';
     document.getElementById('patogeno').value = '';
     document.getElementById('tabela').value = '';
-    document.getElementById('cod').value = '';
+    document.getElementById('n_interno').value = '';
 });
 
   function dash() {

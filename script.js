@@ -1,4 +1,4 @@
-
+/*
 
 // Adiciona um evento de teclado ao botão de login
 document.getElementById('loginForm').addEventListener('keyup', function(event) {
@@ -7,6 +7,18 @@ document.getElementById('loginForm').addEventListener('keyup', function(event) {
     // Chama a função de login quando Enter é pressionado
     login();
   }
+});
+*/
+
+$(document).ready(function(){
+    // Adiciona um evento de teclado ao botão de login
+    $('#loginForm').on('keyup', function(event) {
+        // Verifica se a tecla pressionada é Enter (código 13)
+        if (event.key === 'Enter') {
+            // Chama a função de login quando Enter é pressionado
+            login();
+        }
+    });
 });
 
 function login() {
